@@ -53,7 +53,6 @@ public class LaunchActivity extends AppCompatActivity {
             EditText editText = dialogView.findViewById(R.id.dialog_edittext);
             editText.setText("");
             editText.requestFocus();
-            editText.
         });
 
         // So, the plan is to paste the clipboard by default
