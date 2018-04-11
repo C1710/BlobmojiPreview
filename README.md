@@ -4,7 +4,7 @@ A small EmojiCompat implementation to show emojis on Android devices
 This is a very small app showcasing the possibilities of [EmojiCompat](https://developer.android.com/guide/topics/ui/look-and-feel/emoji-compat.html) using the [Blobmoji](https://github.com/c1710/blobmoji)-Emoji-fork.
 It can be used to show emojis which are not present on the device used.
 
-This project is licensed under the Apache 2.0 license (if such a small app can be licensed)
+This project itself is licensed under the Apache 2.0 license (if such a small app can be licensed) and uses code licensed under the [Apache 2.0 license](LICENSE).
 
 ```
 Copyright (C) 2018 Constantin A.
