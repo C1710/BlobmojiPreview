@@ -57,7 +57,7 @@ public class HostActivity extends AppCompatActivity {
                     .setView(dialogView)
                     // OK will exit
                     .setPositiveButton(
-                            android.R.string.ok,
+                            R.string.close,
                             (DialogInterface dialog, int width) -> {
                                 dialog.dismiss();
                                 this.onBackPressed();
