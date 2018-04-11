@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Blobmoji Vorschau</string>
     <string name="delete">Löschen</string>
+    <string name="opensource">Lizenzen</string>
 </resources>

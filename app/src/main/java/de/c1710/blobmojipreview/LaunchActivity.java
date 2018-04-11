@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
+
 
 public class LaunchActivity extends AppCompatActivity {
 
@@ -41,7 +43,10 @@ public class LaunchActivity extends AppCompatActivity {
                             this.onBackPressed();
                         })
                 .setOnCancelListener((DialogInterface dInterface) -> {this.onBackPressed();})
-                .setNeutralButton(R.string.delete, null);
+                .setNeutralButton(R.string.delete, null)
+        .setNegativeButton(R.string.opensource, (DialogInterface dFace, int width) -> {
+            startActivity(new Intent(this, OssLicensesMenuActivity.class));
+        });
 
         // Create & show the dialog
         AlertDialog dialog = builder.create();
