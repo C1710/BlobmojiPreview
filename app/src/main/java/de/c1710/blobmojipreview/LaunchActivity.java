@@ -13,6 +13,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,15 +38,23 @@ public class LaunchActivity extends AppCompatActivity {
                 .setPositiveButton(
                         android.R.string.ok,
                         (DialogInterface dialog, int width) -> {
-                            dialog.dismiss();
                             this.onBackPressed();
                         })
                 .setOnCancelListener((DialogInterface dInterface) -> {this.onBackPressed();})
-                .setNeutralButton(R.string.delete,
-                        (DialogInterface dialog, int width) -> {
-                            EditText editText = dialogView.findViewById(R.id.dialog_edittext);
-                            editText.setText("");
-                        });
+                .setNeutralButton(R.string.delete, null);
+
+        // Create & show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Since clicking on a button usually dismisses the dialog, the onClick-Method has to be overridden
+        Button deleteButton = dialog.getButton(DialogInterface.BUTTON_NEUTRAL);
+        deleteButton.setOnClickListener((View v) -> {
+            EditText editText = dialogView.findViewById(R.id.dialog_edittext);
+            editText.setText("");
+            editText.requestFocus();
+            editText.
+        });
 
         // So, the plan is to paste the clipboard by default
         ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -65,9 +74,6 @@ public class LaunchActivity extends AppCompatActivity {
             content = "";
         }
 
-        // Create & show the dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
         // We'll need to insert the text we got from the clipboard into the dialog
         EmojiEditText editText = (EmojiEditText) dialogView.findViewById(R.id.dialog_edittext);
         try {
