@@ -22,6 +22,7 @@ import android.support.text.emoji.widget.EmojiTextView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +61,8 @@ public class HostActivity extends AppCompatActivity {
                             (DialogInterface dialog, int width) -> {
                                 dialog.dismiss();
                                 this.onBackPressed();
-                            });
+                            })
+                    .setOnCancelListener((DialogInterface dInterface) -> {this.onBackPressed();});
             // Create & show the dialog
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -68,6 +70,7 @@ public class HostActivity extends AppCompatActivity {
             EmojiTextView textView = (EmojiTextView) dialogView.findViewById(R.id.dialog_text);
             try {
                 textView.setText(content);
+                textView.setMovementMethod(new ScrollingMovementMethod());
             } catch(NullPointerException ex) {
                 Log.e(TAG, "Could not set text", ex);
             }
