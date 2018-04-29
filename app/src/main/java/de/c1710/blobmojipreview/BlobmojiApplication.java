@@ -17,8 +17,16 @@
 package de.c1710.blobmojipreview;
 
 import android.app.Application;
+import android.content.res.AssetManager;
 import android.support.text.emoji.EmojiCompat;
-import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import de.c1710.filemojicompat.FileEmojiCompatConfig;
 
 
 public class BlobmojiApplication extends Application {
@@ -26,11 +34,47 @@ public class BlobmojiApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // This is the font file which is used
+        File emojiFont = new File(getApplicationContext()
+                .getExternalFilesDir(null),
+                "EmojiCompat.ttf");
+        if(!emojiFont.exists()) {
+            // Copy to external file
+            AssetManager assetManager = getAssets();
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+                in = assetManager.open("NotoColorEmojiCompat.ttf");
+                out = new FileOutputStream(emojiFont);
+                byte[] buffer = new byte[4096];
+                int length;
+                while ((length = in.read(buffer)) >= 0) {
+                    out.write(buffer, 0, length);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    if(in != null) {
+                        in.close();
+                    }
+                    if(out != null) {
+                        out.close();
+                    }
+                }
+                catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        }
         EmojiCompat.Config config =
-                //new AssetEmojiCompatConfig(getApplicationContext(), "NotoColorEmoji.ttf")
-                // Well... This doesn't make any sense, but it works!
-                new BundledEmojiCompatConfig(getApplicationContext())
-                        .setReplaceAll(true);
+                new FileEmojiCompatConfig(getApplicationContext(),
+                        emojiFont
+                        )
+                .setReplaceAll(true);
         EmojiCompat.init(config);
     }
 
