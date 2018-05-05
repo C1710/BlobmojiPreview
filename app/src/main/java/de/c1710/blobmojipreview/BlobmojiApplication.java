@@ -38,38 +38,6 @@ public class BlobmojiApplication extends Application {
         File emojiFont = new File(getApplicationContext()
                 .getExternalFilesDir(null),
                 "EmojiCompat.ttf");
-        if(!emojiFont.exists()) {
-            // Copy to external file
-            AssetManager assetManager = getAssets();
-            InputStream in = null;
-            OutputStream out = null;
-            try {
-                in = assetManager.open("NotoColorEmojiCompat.ttf");
-                out = new FileOutputStream(emojiFont);
-                byte[] buffer = new byte[4096];
-                int length;
-                while ((length = in.read(buffer)) >= 0) {
-                    out.write(buffer, 0, length);
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            finally {
-                try {
-                    if(in != null) {
-                        in.close();
-                    }
-                    if(out != null) {
-                        out.close();
-                    }
-                }
-                catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-            }
-        }
         EmojiCompat.Config config =
                 new FileEmojiCompatConfig(getApplicationContext(),
                         emojiFont
