@@ -17,8 +17,16 @@
 package de.c1710.blobmojipreview;
 
 import android.app.Application;
+import android.content.res.AssetManager;
 import android.support.text.emoji.EmojiCompat;
-import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import de.c1710.filemojicompat.FileEmojiCompatConfig;
 
 
 public class BlobmojiApplication extends Application {
@@ -26,11 +34,15 @@ public class BlobmojiApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // This is the font file which is used
+        File emojiFont = new File(getApplicationContext()
+                .getExternalFilesDir(null),
+                "EmojiCompat.ttf");
         EmojiCompat.Config config =
-                //new AssetEmojiCompatConfig(getApplicationContext(), "NotoColorEmoji.ttf")
-                // Well... This doesn't make any sense, but it works!
-                new BundledEmojiCompatConfig(getApplicationContext())
-                        .setReplaceAll(true);
+                new FileEmojiCompatConfig(getApplicationContext(),
+                        emojiFont
+                        )
+                .setReplaceAll(true);
         EmojiCompat.init(config);
     }
 
