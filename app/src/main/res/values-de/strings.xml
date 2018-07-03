@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Blobmoji Vorschau</string>
-    <string name="delete">Löschen</string>
+    <string name="delete">Loeschen</string>
     <string name="opensource">Lizenzen</string>
-    <string name="close">Schließen</string>
+    <string name="close">Schliessen</string>
 </resources>

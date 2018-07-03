@@ -4,24 +4,24 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.text.emoji.widget.EmojiEditText;
-import android.support.text.emoji.widget.EmojiTextView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 
 public class LaunchActivity extends AppCompatActivity {
 
     private static final String TAG = LaunchActivity.class.getCanonicalName();
+    private View dialogView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class LaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launch);
 
         // Create dialog content
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.layout_edit_dialog, null);
+        dialogView = LayoutInflater.from(this).inflate(R.layout.layout_edit_dialog, null);
 
         // Start creating the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -63,8 +63,8 @@ public class LaunchActivity extends AppCompatActivity {
         // So, the plan is to paste the clipboard by default
         ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         CharSequence content;
-        try {
-            // It might be possible that we don't have any clipboard data.
+        // It might be possible that we don't have any clipboard data.
+        if (clipboardManager != null) {
             ClipData clipData = clipboardManager.getPrimaryClip();
             if (clipData.getItemCount() >= 1) {
                 // Yay! There's content!
@@ -73,18 +73,47 @@ public class LaunchActivity extends AppCompatActivity {
                 // Since there is no content inside the clipboard, we'll just default to nothing.
                 content = "";
             }
-        } catch (NullPointerException ex) {
+        } else {
             // Since there is no content inside the clipboard, we'll just default to nothing.
             content = "";
         }
 
         // We'll need to insert the text we got from the clipboard into the dialog
-        EmojiEditText editText = (EmojiEditText) dialogView.findViewById(R.id.dialog_edittext);
+        EmojiEditText editText = dialogView.findViewById(R.id.dialog_edittext);
         try {
             editText.setText(content);
             editText.setMovementMethod(new ScrollingMovementMethod());
         } catch(NullPointerException ex) {
             Log.e(TAG, "Could not set text", ex);
         }
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        // Restarting the app should cause an update on the text shown inside the dialog
+        // So, the plan is to paste the clipboard by default
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        CharSequence content = "";
+        // It might be possible that we don't have any clipboard data.
+        try {
+            if (clipboardManager != null) {
+                ClipData clipData = clipboardManager.getPrimaryClip();
+                if (clipData.getItemCount() >= 1) {
+                    // Yay! There's content!
+                    content = clipData.getItemAt(0).coerceToText(this);
+                } else {
+                    // Since there is no content inside the clipboard, we'll just default to nothing.
+                    content = "";
+                }
+            } else {
+                // Since there is no content inside the clipboard, we'll just default to nothing.
+                content = "";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        EmojiEditText editText = dialogView.findViewById(R.id.dialog_edittext);
+        editText.setText(content);
     }
 }
