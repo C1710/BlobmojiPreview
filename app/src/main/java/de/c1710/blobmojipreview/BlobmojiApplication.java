@@ -17,7 +17,8 @@
 package de.c1710.blobmojipreview;
 
 import android.app.Application;
-import android.support.text.emoji.EmojiCompat;
+
+import androidx.emoji.text.EmojiCompat;
 
 import de.c1710.filemojicompat.FileEmojiCompatConfig;
 

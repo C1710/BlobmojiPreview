@@ -18,15 +18,16 @@ package de.c1710.blobmojipreview;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.text.emoji.widget.EmojiTextView;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.emoji.widget.EmojiTextView;
 
 public class HostActivity extends AppCompatActivity {
 
@@ -67,7 +68,7 @@ public class HostActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
             // We'll need to insert the text the other app sent to us into the dialog
-            EmojiTextView textView = (EmojiTextView) dialogView.findViewById(R.id.dialog_text);
+            EmojiTextView textView = dialogView.findViewById(R.id.dialog_text);
             try {
                 textView.setText(content);
                 textView.setMovementMethod(new ScrollingMovementMethod());
