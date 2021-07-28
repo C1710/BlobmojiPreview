@@ -40,14 +40,10 @@ public class LaunchActivity extends AppCompatActivity {
                 // OK will exit
                 .setPositiveButton(
                         R.string.close,
-                        (DialogInterface dialog, int width) -> {
-                            this.onBackPressed();
-                        })
-                .setOnCancelListener((DialogInterface dInterface) -> {this.onBackPressed();})
+                        (DialogInterface dialog, int width) -> this.onBackPressed())
+                .setOnCancelListener((DialogInterface dInterface) -> this.onBackPressed())
                 .setNeutralButton(R.string.delete, null)
-        .setNegativeButton(R.string.opensource, (DialogInterface dFace, int width) -> {
-            startActivity(new Intent(this, OssLicensesMenuActivity.class));
-        });
+        .setNegativeButton(R.string.opensource, (DialogInterface dFace, int width) -> startActivity(new Intent(this, OssLicensesMenuActivity.class)));
 
         // Create & show the dialog
         AlertDialog dialog = builder.create();
@@ -67,7 +63,7 @@ public class LaunchActivity extends AppCompatActivity {
         // It might be possible that we don't have any clipboard data.
         if (clipboardManager != null) {
             ClipData clipData = clipboardManager.getPrimaryClip();
-            if (clipData.getItemCount() >= 1) {
+            if (clipData != null && clipData.getItemCount() >= 1) {
                 // Yay! There's content!
                 content = clipData.getItemAt(0).coerceToText(this);
             } else {
@@ -103,14 +99,11 @@ public class LaunchActivity extends AppCompatActivity {
                 if (clipData.getItemCount() >= 1) {
                     // Yay! There's content!
                     content = clipData.getItemAt(0).coerceToText(this);
-                } else {
-                    // Since there is no content inside the clipboard, we'll just default to nothing.
-                    content = "";
                 }
-            } else {
                 // Since there is no content inside the clipboard, we'll just default to nothing.
-                content = "";
             }
+            // Since there is no content inside the clipboard, we'll just default to nothing.
+
         } catch (Exception e) {
             e.printStackTrace();
         }
