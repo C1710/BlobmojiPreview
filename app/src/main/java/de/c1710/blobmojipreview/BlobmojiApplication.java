@@ -21,6 +21,7 @@ import android.app.Application;
 import androidx.emoji.text.EmojiCompat;
 
 import de.c1710.filemojicompat.FileEmojiCompatConfig;
+import de.c1710.filemojicompat.ReplaceStrategy;
 
 
 public class BlobmojiApplication extends Application {
@@ -28,8 +29,8 @@ public class BlobmojiApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        EmojiCompat.Config config = FileEmojiCompatConfig.createFromAsset(getApplicationContext())
-                .setReplaceAll(true, true);
+        EmojiCompat.Config config = FileEmojiCompatConfig.init(getApplicationContext())
+                .setReplaceAll(ReplaceStrategy.ALWAYS);
         EmojiCompat.init(config);
     }
 

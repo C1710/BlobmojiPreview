@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.emoji.text.EmojiCompat;
 import androidx.emoji.widget.EmojiEditText;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
@@ -77,6 +78,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         // We'll need to insert the text we got from the clipboard into the dialog
         EmojiEditText editText = dialogView.findViewById(R.id.dialog_edittext);
+        de.c1710.filemojicompat.Utils.patchImeSupport(editText, true);
         try {
             editText.setText(content);
             editText.setMovementMethod(new ScrollingMovementMethod());
