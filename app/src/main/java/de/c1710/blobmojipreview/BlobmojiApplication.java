@@ -20,6 +20,8 @@ import android.app.Application;
 
 import androidx.emoji.text.EmojiCompat;
 
+import java.io.File;
+
 import de.c1710.filemojicompat.FileEmojiCompatConfig;
 import de.c1710.filemojicompat.ReplaceStrategy;
 
@@ -29,7 +31,7 @@ public class BlobmojiApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        EmojiCompat.Config config = FileEmojiCompatConfig.init(getApplicationContext())
+        EmojiCompat.Config config = FileEmojiCompatConfig.init(getApplicationContext(), (File) null, "BlobmojiCompat.ttf")
                 .setReplaceAll(ReplaceStrategy.ALWAYS);
         EmojiCompat.init(config);
     }
