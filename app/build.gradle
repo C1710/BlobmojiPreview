@@ -35,5 +35,5 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
-    implementation files('C:/Users/const/Git/filemojicompat/filemojicompat/build/outputs/aar/filemojicompat-release.aar')
+    implementation 'de.c1710:filemojicompat:2.0.0'
 }
