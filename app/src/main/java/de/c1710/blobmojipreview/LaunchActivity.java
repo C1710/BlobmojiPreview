@@ -14,8 +14,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.emoji.text.EmojiCompat;
-import androidx.emoji.widget.EmojiEditText;
+import androidx.emoji2.widget.EmojiEditText;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 

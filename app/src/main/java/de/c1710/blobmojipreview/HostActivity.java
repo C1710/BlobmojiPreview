@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.emoji.widget.EmojiTextView;
+import androidx.emoji2.widget.EmojiTextView;
 
 public class HostActivity extends AppCompatActivity {
 

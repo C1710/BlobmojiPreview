@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.emoji.widget.EmojiEditText
+    <androidx.emoji2.widget.EmojiEditText
         android:id="@+id/dialog_edittext"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
