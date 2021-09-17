@@ -11,8 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HostActivity"
-            android:theme="@style/TransparentTheme">
+        <activity
+            android:name=".HostActivity"
+            android:theme="@style/TransparentTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -21,24 +23,19 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".LaunchActivity"
-            android:theme="@style/TransparentTheme">
+        <activity
+            android:name=".LaunchActivity"
+            android:theme="@style/TransparentTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PreferenceActivity"
+            android:parentActivityName=".LaunchActivity"
 
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
-            tools:node="merge">
-            <meta-data android:name="androidx.emoji2.text.EmojiCompatInitializer"
-                tools:node="remove" />
-        </provider>
+            />
     </application>
-
-
 </manifest>

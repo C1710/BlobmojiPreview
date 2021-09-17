@@ -18,6 +18,8 @@ import androidx.emoji2.widget.EmojiEditText;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
+import de.c1710.filemojicompat_ui.helpers.EmojiPreference;
+
 
 public class LaunchActivity extends AppCompatActivity {
 
@@ -43,7 +45,7 @@ public class LaunchActivity extends AppCompatActivity {
                         (DialogInterface dialog, int width) -> this.onBackPressed())
                 .setOnCancelListener((DialogInterface dInterface) -> this.onBackPressed())
                 .setNeutralButton(R.string.delete, null)
-        .setNegativeButton(R.string.opensource, (DialogInterface dFace, int width) -> startActivity(new Intent(this, OssLicensesMenuActivity.class)));
+        .setNegativeButton(R.string.opensource, (DialogInterface dFace, int width) -> startActivity(new Intent(this, PreferenceActivity.class)));
 
         // Create & show the dialog
         AlertDialog dialog = builder.create();
@@ -76,8 +78,7 @@ public class LaunchActivity extends AppCompatActivity {
         }
 
         // We'll need to insert the text we got from the clipboard into the dialog
-        EmojiEditText editText = dialogView.findViewById(R.id.dialog_edittext);
-        de.c1710.filemojicompat.Utils.patchImeSupport(editText, true);
+        EditText editText = dialogView.findViewById(R.id.dialog_edittext);
         try {
             editText.setText(content);
             editText.setMovementMethod(new ScrollingMovementMethod());

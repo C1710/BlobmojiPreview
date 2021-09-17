@@ -17,24 +17,50 @@
 package de.c1710.blobmojipreview;
 
 import android.app.Application;
+import android.net.Uri;
+import android.util.Log;
 
 
-import androidx.emoji2.text.EmojiCompat;
+import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 
-import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
-import de.c1710.filemojicompat.FileEmojiCompatConfig;
-import de.c1710.filemojicompat.ReplaceStrategy;
-
+import de.c1710.filemojicompat_defaults.DefaultEmojiPackList;
+import de.c1710.filemojicompat_ui.helpers.EmojiPackHelper;
+import de.c1710.filemojicompat_ui.helpers.EmojiPackList;
+import de.c1710.filemojicompat_ui.packs.AssetEmojiPack;
+import de.c1710.filemojicompat_ui.packs.DownloadableEmojiPack;
+import de.c1710.filemojicompat_ui.structures.EmojiPack;
+import de.c1710.filemojicompat_ui.versions.Version;
 
 public class BlobmojiApplication extends Application {
+    static final int[] BLOBMOJI_VERSION = {14, 0};
 
     @Override
     public void onCreate() {
         super.onCreate();
-        EmojiCompat.Config config = FileEmojiCompatConfig.init(getApplicationContext(), (File) null, "BlobmojiCompat.ttf")
-                .setReplaceAll(ReplaceStrategy.ALWAYS);
-        EmojiCompat.init(config);
+
+        ArrayList<EmojiPack> packs = DefaultEmojiPackList.get(getApplicationContext());
+        EmojiPack blobmojiPride = new AssetEmojiPack(
+                "BlobmojiCompat.ttf",
+                "Blobmoji Pride",
+                "For a more colorful experience",
+                ResourcesCompat.getDrawable(getResources(), R.drawable.ic_two_hearts, getTheme()),
+                new Version(BLOBMOJI_VERSION),
+                Uri.parse("https://github.com/c1710/blobmoji"),
+                Uri.parse("https://github.com/C1710/blobmoji/blob/main/LICENSE"),
+                "An emoji set based on the one found in earlier Android versions, but enhanced and " +
+                        "updated for modern Emoji standards"
+        );
+
+        packs.add(blobmojiPride);
+
+        EmojiPackHelper.init(this, packs);
     }
 
 }
